@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Calculator
 
   def initialize
@@ -6,7 +8,7 @@ class Calculator
 
   def process(input)
     # Guard against invalid input.
-    return 'Invalid input.' unless valid? input
+    raise(StandardError, 'Invalid input.') unless valid? input
 
     # Place number on stack
     return place(input) if numeric? input
@@ -18,15 +20,22 @@ class Calculator
   private
 
   def place(numeric)
-    @stack << numeric.to_f
+    @stack << BigDecimal.new(numeric)
     format(numeric)
   end
 
   def operate(input)
-    return 'At least 2 values are required.' unless @stack.size >= 2
+    raise(StandardError, 'At least 2 values are required.') unless @stack.size >= 2
 
-    @stack << (result = apply(input, *@stack.pop(2)))
-    format(result)
+    last = @stack.last(2)
+    result = apply(input, *@stack.pop(2))
+    if result.to_s == 'Infinity'
+      @stack.concat last
+      raise StandardError, 'Function returns Infinity.'
+    end
+
+    @stack << result
+    format(result.to_f)
   end
 
   def apply(operator, a, b)

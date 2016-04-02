@@ -7,12 +7,19 @@ describe Calculator, '#process' do
 
   context 'invalid inputs' do
     it 'returns warning on invalid input' do
-      expect(calc.process('%')).to eq('Invalid input.')
+      expect{ calc.process('%') }.to raise_error('Invalid input.')
+      # expect(calc.process('%')).to eq('Invalid input.')
     end
 
     it 'returns warning on operations with too few values' do
       calc.process('2')
-      expect(calc.process('-')).to eq('At least 2 values are required.')
+      expect{ calc.process('-') }.to raise_error('At least 2 values are required.')
+    end
+
+    it 'returns warning on division by 0' do
+      calc.process('5')
+      calc.process('0')
+      expect{ calc.process('/') }.to raise_error('Function returns Infinity.')
     end
   end
 
