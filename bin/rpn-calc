@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ruby `dirname $0`/../rpn_calc.rb
