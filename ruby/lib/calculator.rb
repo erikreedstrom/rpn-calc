@@ -1,7 +1,28 @@
+# frozen_string_literal: true
+
 require 'bigdecimal'
 
+# An RPN calculator.
+#
+# Provides methods for calculating operations in RPN notation.
+#
+# An instance provides a single method, `process`, which takes
+# either a numeric input, or an operator.
+#
+# Supports:
+# - addition `+`
+# - subtraction `-`
+# - multiplication `*`
+# - division `/`
+#
+# @example Add two numbers
+#   calc = Calculator.new
+#   calc.process('1')
+#   calc.process('1')
+#   calc.process('+')
+#   # => '2'
+#
 class Calculator
-
   def initialize
     @stack = []
   end
@@ -20,7 +41,7 @@ class Calculator
   private
 
   def place(numeric)
-    @stack << BigDecimal.new(numeric)
+    @stack << BigDecimal(numeric)
     format(numeric)
   end
 
@@ -29,7 +50,7 @@ class Calculator
 
     last = @stack.last(2)
     result = apply(input, *@stack.pop(2))
-    if result.to_s == 'Infinity'
+    if result.to_s.match? 'Infinity'
       @stack.concat last
       raise StandardError, 'Function returns Infinity.'
     end
@@ -39,11 +60,11 @@ class Calculator
   end
 
   def apply(operator, a, b)
-    a.public_send(operator, b);
+    a.public_send(operator, b)
   end
 
   def valid?(input)
-    /^(?:[\+\-\*\/]|\-?\d+(?:.\d+)?)$/.match(input)
+    %r{^(?:[\+\-\*\/]|\-?\d+(?:.\d+)?)$}.match(input)
   end
 
   def numeric?(input)
@@ -52,7 +73,6 @@ class Calculator
 
   def format(numeric)
     # Drop insignificant 0s
-    numeric.to_i === numeric ? numeric.to_i.to_s : numeric.to_s
+    numeric.to_i == numeric ? numeric.to_i.to_s : numeric.to_s
   end
-
 end

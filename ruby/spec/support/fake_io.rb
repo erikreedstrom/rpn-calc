@@ -1,5 +1,6 @@
-class FakeIO
+# frozen_string_literal: true
 
+class FakeIO
   attr_accessor :input, :output
 
   def initialize(input)
@@ -12,11 +13,11 @@ class FakeIO
   end
 
   def puts(string)
-    @output << "#{string}\n"
+    @output += "#{string}\n"
   end
 
   def write(string)
-    @output << string
+    @output += string
   end
 
   def self.each_input(input)
