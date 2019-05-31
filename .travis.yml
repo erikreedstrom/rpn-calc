@@ -8,3 +8,13 @@ matrix:
       before_script:
         - cd ruby
       script: bundle exec rspec spec
+    - language: elixir
+      elixir:
+        - "1.8"
+        - "1.7"
+      otp_release:
+        - "21.0"
+      sudo: false
+      before_install:
+        - cd elixir
+      script: mix coveralls.json
