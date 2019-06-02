@@ -18,3 +18,13 @@ matrix:
       before_install:
         - cd elixir
       script: mix coveralls.json
+    - language: go
+      go:
+        - "1.12"
+        - "1.11"
+      env:
+        - GO111MODULE=on
+      go_import_path: rpn_calc
+      before_install:
+        - cd go
+      script: go test -v ./... -coverprofile cp.out
