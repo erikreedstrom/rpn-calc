@@ -24,3 +24,5 @@ rpn_calc-*.tar
 
 # Ignore binary
 /rpn_calc
+
+/.elixir_ls

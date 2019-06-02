@@ -14,7 +14,7 @@ defmodule RPNCalc do
 
   defp loop do
     with arg when arg != :eof <- IO.gets("> "),
-         arg = arg |> String.trim() |> String.downcase(),
+         arg = arg |> String.trim(),
          arg when arg != "q" <- arg,
          value when value != :ok <- execute(arg) do
       IO.puts(value)
