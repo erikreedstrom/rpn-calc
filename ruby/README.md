@@ -5,5 +5,5 @@ Reverse Polish Notation calculator in Ruby.
 To run, execute the following:
 
 ```bash
-$ ./bin/rpn-calc
+$ ./rpn-calc
 ```
