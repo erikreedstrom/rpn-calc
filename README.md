@@ -8,7 +8,7 @@ Reverse Polish Notation calculator in different languages.
 
 ## Purpose
 
-As an engineer we are often tasked with demonstrating our ability to be proficient in a given
+As engineers, we are often tasked with demonstrating our ability to be proficient in a given
 language. This repo exists for the casual browser to see how the author would approach the RPN problem 
 in many of today's modern languages.
 
